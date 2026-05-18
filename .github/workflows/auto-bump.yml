@@ -1,0 +1,32 @@
+name: Auto Bump
+
+on:
+  schedule:
+    # Run every hour.
+    - cron: "0 * * * *"
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  bump-packages:
+    if: github.event.repository.fork == false
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      - uses: actions/create-github-app-token@v3
+        id: app-token
+        with:
+          client-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+      - uses: Homebrew/actions/setup-homebrew@main
+      - name: Bump packages
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          echo "Bumping packages in tap: $GITHUB_REPOSITORY"
+          brew bump --no-fork --open-pr --casks --tap=$GITHUB_REPOSITORY
+          brew bump --no-fork --open-pr --formulae --tap=$GITHUB_REPOSITORY
