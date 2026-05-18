@@ -3,7 +3,7 @@
 ## Installation
 
 ```sh
-brew tap IvanJosipovic/homebrew
+brew tap IvanJosipovic/homebrew-repo
 brew install <name>
 ```
 
