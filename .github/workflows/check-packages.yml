@@ -35,8 +35,8 @@ jobs:
       matrix:
         packages: ${{ fromJSON(needs.changed-packages.outputs.matrix) }}
         os: # https://docs.github.com/en/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories
-          - macos-latest # Based on arm64.
-          - macos-latest-intel # Based on x64.
+          - macos-26 # Based on arm64.
+          - macos-26-intel # Based on x64.
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
@@ -81,7 +81,7 @@ jobs:
           fi
           echo "All required jobs completed successfully."
       - name: Merge current PR
-        if: github.event_name == 'pull_request' && github.triggering_actor == 'actionstokenprovider[bot]'
+        if: github.event_name == 'pull_request' && github.triggering_actor == 'thecibot[bot]'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token will not trigger workflows run, which is desired here.
         run: |
