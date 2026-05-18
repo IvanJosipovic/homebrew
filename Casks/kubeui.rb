@@ -21,6 +21,6 @@ cask "kubeui" do
   app "KubeUI.app"
 
   zap trash: [
-    "~/.kubeui"
+    "~/.kubeui",
   ]
 end
