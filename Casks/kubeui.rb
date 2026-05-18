@@ -9,7 +9,7 @@ cask "kubeui" do
       verified: "github.com/IvanJosipovic/KubeUI/"
   name "KubeUI"
   desc "Kubernetes User Interface"
-  homepage "https://github.com/IvanJosipovic/KubeUI"
+  homepage "https://kubeui.com"
 
   livecheck do
     url :url
